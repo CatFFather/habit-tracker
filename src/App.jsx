@@ -1,9 +1,11 @@
-import './app.css';
+import "./app.css";
+import Habits from "./components/Habits";
 
 function App() {
   return (
     <>
-      <h1>hello</h1>
+      <Habits />
+      {/* <Habit /> */}
     </>
   );
 }
