@@ -10,10 +10,11 @@ class Habits extends Component {
     ],
   };
   // state 오브젝트 안에 있는 count를 증가 한뒤 state를 업데이트 해야함.
-  handleIncrement = (event) => {
-    console.log(event);
+  // 증가
+  handleIncrement = (id) => {
+    console.log(id);
     const newHabits = this.state.habits.map((habit) => {
-      if (event && habit.id == event.target.name) {
+      if (habit.id === id) {
         return {
           id: habit.id,
           name: habit.name,
@@ -27,9 +28,10 @@ class Habits extends Component {
       return { habits: newHabits };
     });
   };
-  handleDecrement = (event) => {
+  // 감소
+  handleDecrement = (id) => {
     const newHabits = this.state.habits.map((habit) => {
-      if (event && habit.count > 0 && habit.id == event.target.name) {
+      if (habit.count > 0 && habit.id === id) {
         return {
           id: habit.id,
           name: habit.name,
@@ -43,9 +45,10 @@ class Habits extends Component {
       return { habits: newHabits };
     });
   };
-  handleDelete = (event) => {
+  // 삭제
+  handleDelete = (id) => {
     const newHabits = this.state.habits.filter((habit) => {
-      return habit.id != event.target.name;
+      return habit.id !== id;
     });
     this.setState(() => {
       return { habits: newHabits };
