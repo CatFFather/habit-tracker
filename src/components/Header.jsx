@@ -5,6 +5,7 @@ class Header extends Component {
     return (
       <header>
         <h1 className="header__title">
+          <i className="fas fa-leaf"></i>
           Habit Tracker{" "}
           <span style={{ backgroundColor: "green" }} className="havit-count">
             {this.props.habitTotalCount}

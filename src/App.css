@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 ul {
   padding: 0;
 }
@@ -13,14 +16,21 @@ button {
 }
 /* header */
 header {
-  margin: 20px;
+  padding: 10px 20px;
+  background-color: blanchedalmond;
 }
 .header__title {
+  font-size: 2rem;
   font-weight: initial;
+}
+.fa-leaf {
+  color: green;
+  margin-right: 5px;
 }
 
 /* habit 추가 iput */
 .habit__add__input__wrap {
+  margin-top: 15px;
   display: flex;
   /* align-items: center; */
 }
