@@ -5,12 +5,36 @@ button {
   outline: none;
   border: 0;
   cursor: pointer;
+  background-color: green;
+  color: white;
+  font-size: 1.5rem;
+  margin-left: 20px;
+  padding: 5px 10px;
 }
+/* header */
+header {
+  margin: 20px;
+}
+.header__title {
+  font-weight: initial;
+}
+
+/* habit 추가 iput */
+.habit__add__input__wrap {
+  display: flex;
+  /* align-items: center; */
+}
+.habit__add__input {
+  font-size: 1.5rem;
+  margin-left: 20px;
+}
+
 .habit {
   font-size: 2.5rem;
   padding: 0.5em;
   list-style: none;
 }
+
 .havit-count {
   display: inline-block;
   text-align: center;
@@ -18,7 +42,6 @@ button {
   width: 2.5rem;
   height: 2.5rem;
   line-height: 2.5rem;
-  margin-left: 0.2em;
   margin-left: 0.2em;
   background-color: darkseagreen;
   color: white;
