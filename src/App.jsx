@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "./app.css";
 import Header from "./components/Header";
-import Input from "./components/Input";
+import AddInputWrap from "./components/AddInputWrap";
 import Habits from "./components/Habits";
 
 class App extends Component {
   state = {
-    addHabitValue: null,
+    // addHabitValue: null, state로 관리 할 필요 없음 Ref로 input 접근
     habits: [
       { id: 1, name: "Reading", count: 0 },
       { id: 2, name: "Running", count: 0 },
@@ -59,54 +59,62 @@ class App extends Component {
       return { habits: newHabits };
     });
   };
-  // input창 컨트롤
-  setAddHabitValue = (value) => {
-    this.setState(() => {
-      return { addHabitValue: value };
-    });
-  };
+
+  // // input창 컨트롤  -- > 필요 없음
+  // setAddHabitValue = (value) => {
+  //   this.setState(() => {
+  //     return { addHabitValue: value };
+  //   });
+  // };
+
   // Add 버튼 이벤트
-  addHabit = () => {
+  addHabit = (value) => {
+    console.log(value);
     const newHabits = [
       ...this.state.habits,
       {
         id: this.state.habits.length + 1,
-        name: this.state.addHabitValue,
+        name: value,
         count: 0,
       },
     ];
     this.setState(() => {
       return { addHabitValue: null, habits: newHabits };
     });
-    document.querySelector(".habit__add__input").value = null;
   };
-  // reset 버튼 이벤트
+
+  // reset 버튼 이벤트 (각각의 habit의 count만 0으로 reset)
   resetHabits = () => {
+    const newHabits = this.state.habits.map((habit) => {
+      habit.count = 0;
+      return habit;
+    });
     this.setState(() => {
-      return { habits: [] };
+      return { habits: newHabits };
     });
   };
 
   render() {
-    console.log(this.state);
     return (
       <>
-        <Header habitTotalCount={this.state.habits.length} />
-        <div className="habit__add__input__wrap">
-          <Input
-            setAddHabitValue={this.setAddHabitValue}
-            addHabit={this.addHabit}
-          />
-          <button onClick={this.addHabit}>Add</button>
-        </div>
-
+        <Header
+          // habitTotalCount 는 count가 1보다 큰것들만 추출
+          habitTotalCount={
+            this.state.habits.filter((habit) => {
+              if (habit.count > 0) {
+                return habit;
+              }
+            }).length
+          }
+        />
+        <AddInputWrap addHabit={this.addHabit} />
         <Habits
           habits={this.state.habits}
           handleIncrement={this.handleIncrement}
           handleDecrement={this.handleDecrement}
           handleDelete={this.handleDelete}
+          resetHabits={this.resetHabits}
         />
-        <button onClick={this.resetHabits}>Reset All</button>
       </>
     );
   }
