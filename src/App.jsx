@@ -17,7 +17,6 @@ class App extends Component {
   // state 오브젝트 안에 있는 count를 증가 한뒤 state를 업데이트 해야함.
   // 증가
   handleIncrement = (id) => {
-    console.log(id);
     const newHabits = this.state.habits.map((habit) => {
       if (habit.id === id) {
         return {
@@ -69,7 +68,6 @@ class App extends Component {
 
   // Add 버튼 이벤트
   addHabit = (value) => {
-    console.log(value);
     const newHabits = [
       ...this.state.habits,
       {
@@ -79,16 +77,23 @@ class App extends Component {
       },
     ];
     this.setState(() => {
-      return { addHabitValue: null, habits: newHabits };
+      return { habits: newHabits };
     });
   };
 
   // reset 버튼 이벤트 (각각의 habit의 count만 0으로 reset)
   resetHabits = () => {
     const newHabits = this.state.habits.map((habit) => {
-      habit.count = 0;
-      return habit;
+      if (habit.count !== 0) {
+        return {
+          ...habit,
+          count: 0,
+        };
+      } else {
+        return habit;
+      }
     });
+    console.log(newHabits);
     this.setState(() => {
       return { habits: newHabits };
     });

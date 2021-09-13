@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import Habit from "./Habit";
 
+// 이 컴포넌트에서는 PureComponent를 사용하여도 render가 되기 때문에 사용하지 않는다.
 class Habits extends Component {
   render() {
+    console.log("Habits");
     const {
       habits, // 습관들
       handleIncrement, // 증가 함수
