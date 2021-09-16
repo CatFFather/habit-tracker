@@ -4,12 +4,26 @@ import Header from "./components/Header";
 import AddInputWrap from "./components/AddInputWrap";
 import Habits from "./components/Habits";
 
+// class component는 rcc로 생성 , function component는 rsf or rsi 로 생성
+
 class App extends Component {
   state = {
     // addHabitValue: null, state로 관리 할 필요 없음 Ref로 input 접근
     habits: JSON.parse(localStorage.getItem("habits")) || [],
     seq: JSON.parse(localStorage.getItem("habits-seq")) || 0,
   };
+
+  // state 변경시 localStorage에 저장
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.habits != this.state.habits) {
+      // localStorage에 저장(habits)
+      localStorage.setItem("habits", JSON.stringify(this.state.habits));
+    }
+    if (prevState.seq != this.state.seq) {
+      // localStorage에 저장(seq)
+      localStorage.setItem("habits-seq", this.state.seq + 1);
+    }
+  }
 
   // state 오브젝트 안에 있는 count를 증가 한뒤 state를 업데이트 해야함.
   // 증가
@@ -28,8 +42,6 @@ class App extends Component {
     this.setState(() => {
       return { habits: newHabits };
     });
-    // localStorage에 저장
-    localStorage.setItem("habits", JSON.stringify(newHabits));
   };
   // 감소
   handleDecrement = (id) => {
@@ -47,8 +59,6 @@ class App extends Component {
     this.setState(() => {
       return { habits: newHabits };
     });
-    // localStorage에 저장
-    localStorage.setItem("habits", JSON.stringify(newHabits));
   };
   // 삭제
   handleDelete = (id) => {
@@ -58,8 +68,6 @@ class App extends Component {
     this.setState(() => {
       return { habits: newHabits };
     });
-    // localStorage에 저장
-    localStorage.setItem("habits", JSON.stringify(newHabits));
   };
 
   // // input창 컨트롤  -- > 필요 없음
@@ -82,10 +90,6 @@ class App extends Component {
     this.setState(() => {
       return { habits: newHabits, seq: this.state.seq + 1 };
     });
-
-    // localStorage에 저장
-    localStorage.setItem("habits", JSON.stringify(newHabits));
-    localStorage.setItem("habits-seq", this.state.seq + 1);
   };
 
   // reset 버튼 이벤트 (각각의 habit의 count만 0으로 reset)
@@ -104,12 +108,9 @@ class App extends Component {
     this.setState(() => {
       return { habits: newHabits };
     });
-    // localStorage에 저장
-    localStorage.setItem("habits", JSON.stringify(newHabits));
   };
 
   render() {
-    console.log(this.state);
     return (
       <>
         <Header
